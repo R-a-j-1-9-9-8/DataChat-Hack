@@ -6,3 +6,4 @@ matplotlib
 functools
 time
 logging
+traceback2
