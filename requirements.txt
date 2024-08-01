@@ -3,6 +3,3 @@ google-generativeai
 pandas
 seaborn
 matplotlib
-time
-logging
-traceback2
