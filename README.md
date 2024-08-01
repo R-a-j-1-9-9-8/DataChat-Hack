@@ -4,7 +4,7 @@ The DataChat Application is designed to communicate with data by using natural l
 
 ## Live Application
 
-[![Application link]](https://datachat-hack-6vojjx9gaovskyedhfe66k.streamlit.app/)
+[[Streamlit Application link]](https://datachat-hack-6vojjx9gaovskyedhfe66k.streamlit.app/)
 
 
 ## Demo Video
