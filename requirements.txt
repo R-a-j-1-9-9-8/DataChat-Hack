@@ -3,7 +3,6 @@ google-generativeai
 pandas
 seaborn
 matplotlib
-functools
 time
 logging
 traceback2
