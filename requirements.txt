@@ -2,7 +2,7 @@ streamlit
 google-generativeai
 pandas
 seaborn
-traceback
+matplotlib
 functools
 time
 logging
