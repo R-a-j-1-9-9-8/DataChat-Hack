@@ -3,6 +3,7 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+import pandas as pd
 
 # Setting page config
 st.set_page_config(page_title='DataChat')
@@ -81,13 +82,15 @@ if st.session_state["file"] is not None:
 
     # Text input widget for user input
     txt = st.text_area(" Start chatting with Data", key="user_input")
-    
+    txt = txt.strip()
     # Radio button widget for selecting type of operation
-    t = st.radio('Type',["Perform Analytics", "Perform Data Operation"],horizontal=True,)
+    t = st.radio('Task Type',["Analytics", "Data Operation", "Forecast" ],horizontal=True,)
     
     # Navigate to respective pages after clicking submit button
     if st.button("Submit", on_click=on_click):
-            if t == "Perform Data Operation":
+            if t == "Data Operation":
                 st.switch_page("pages/Data_Management.py")
-            if t == "Perform Analytics":
+            if t == "Analytics":
                 st.switch_page("pages/Analytic_Report.py")
+            if t == "Forecast":
+                st.switch_page("pages/Forecast.py")
