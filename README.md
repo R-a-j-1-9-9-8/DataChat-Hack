@@ -9,7 +9,7 @@ The DataChat Application is designed to communicate with data by using natural l
 
 ## Demo Video
 
-[![Watch the Video](https://img.youtube.com/vi/DFACoJQSdsg/0.jpg)](https://www.youtube.com/watch?v=DFACoJQSdsg)
+[![Watch the Video](https://img.youtube.com/vi/DFACoJQSdsg/0.jpg)](https://www.youtube.com/watch?v=gEAxWMOI4wg)
 
 
 ## Installation
