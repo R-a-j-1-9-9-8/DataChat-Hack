@@ -64,7 +64,7 @@ if st.session_state["message_list"] != []:
     instruction = st.session_state["message_list"][-1]
 
 # Gen AI model config
-genai.configure(api_key=st.secrets["api"])
+genai.configure(api_key='AIzaSyDNKtbzCAuDTUC6HIrbVDOH2fDnEphpDME')
 
 # Function to create prompt
 @st.cache_data
@@ -91,8 +91,8 @@ def prompt_maker(dataframe,text):
         else:
             p += '\n\nColumn ' + i +  ' has ' + str(d) + ' datatype'
     
-    p += '\nBy using the table description, create a python code function which takes dataframe as input and returns all the records of dataframe which can answer the Question. Keep the name of function short. Don\'t use reset index. \n '
-    p += """\n\nQuestion : """ + text + '\n'
+    p += '\n\nBy using the table description, create a python code function which takes dataframe as input and returns all the records of dataframe which can answer the Question. Keep the name of function short. Don\'t use reset index. Import pandas library in function code. Only use the categories from above Table description for function code. \n '
+    p += """\nQuestion : """ + text + '\n'
     return p
 
 # Defining parameters for Gen AI model
@@ -166,7 +166,7 @@ def prompt_viz(dataframe,text):
 
     p += str(dataframe)
     
-    p += """\n\nBy using the Data provided above, suggest a chart type to answer the following question. Suggest only from area chart, bar chart, line chart, scatter chart. Answer only chart type.\n\nquestion : """ + text + '\n'
+    p += """\n\nBy using the Data provided above, suggest a chart type to answer the following question. Suggest only from area chart, bar chart, line chart, scatter chart and tablular chart. If data is large give output as tablular chart.  Answer only chart type.\n\nquestion : """ + text + '\n'
 
     return p
 
@@ -183,6 +183,7 @@ if "message_list" in st.session_state and "df" in st.session_state and st.sessio
         code_text = llm.generate_content(p)
         code, var = func(code_text.text)
         exec(code)
+        data = eval(var)
         return code, var
 
     code, var = format_code(p)
@@ -191,6 +192,7 @@ if "message_list" in st.session_state and "df" in st.session_state and st.sessio
     @st.cache_data
     def run_code(code,var,instruction):
         exec(code)
+        
         data = eval(var)
         analytics_prompt = prompt_analytica(data, instruction)
         return analytics_prompt ,data
@@ -206,15 +208,18 @@ if "message_list" in st.session_state and "df" in st.session_state and st.sessio
     # initialize chat history
     #if "messages" not in st.session_state:
     st.session_state.messages = [{"role": "assistant", "content": chat}]
-
+    
     # Displaying query in UI
     st.write('Your Query is : ' + instruction)
-
+    #'-----Promt for generating code---'
+    #p
     # Displaying result data in UI
+    #'-----Generated code------'
+    #code
     st.write('Result Data :')
     st.dataframe(data)
-
     # Display chart as per suggestion by Gen AI model
+    
     st.write('Visualize Data :')
     if chart.text.strip().lower() == 'area chart':
         st.area_chart(data)
@@ -224,6 +229,9 @@ if "message_list" in st.session_state and "df" in st.session_state and st.sessio
         st.line_chart(data)
     if chart.text.strip().lower() == 'scatter chart':
         st.scatter_chart(data)
+    
+    #'------Prompt for generating answers------'
+    #analytics_prompt
 
     # Function to create prompt for chatbot
     @st.cache_data
@@ -263,10 +271,4 @@ if "message_list" in st.session_state and "df" in st.session_state and st.sessio
 
 else:
     st.markdown("### Please provide your Query to Generate Insights") 
-
-
-
-
-
-
-
+    
